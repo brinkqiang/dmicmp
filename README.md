@@ -23,9 +23,25 @@ Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 
 ## Intro
 dmicmp
-```cpp
 ```
+ping -t 10 baidu.com
+```
+
+```
+Pinging baidu.com [110.242.68.66] with 64 bytes of data:
+Reply from 110.242.68.66: time=36.666 TTL=49
+Reply from 110.242.68.66: time=34.447 TTL=49
+Reply from 110.242.68.66: time=36.445 TTL=49
+Reply from 110.242.68.66: time=34.852 TTL=49
+Reply from 110.242.68.66: time=34.821 TTL=49
+Reply from 110.242.68.66: time=34.461 TTL=49
+Reply from 110.242.68.66: time=34.092 TTL=49
+Reply from 110.242.68.66: time=35.063 TTL=49
+Reply from 110.242.68.66: time=36.078 TTL=49
+Reply from 110.242.68.66: time=34.336 TTL=49
+```
+
+
 ## Contacts
-[![Join the chat](https://badges.gitter.im/brinkqiang/dmicmp/Lobby.svg)](https://gitter.im/brinkqiang/dmicmp)
 
 ## Thanks
