@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-MACRO(ShowEnvironment)
+macro(ShowEnvironment)
   message(STATUS "================================================================================")
   get_cmake_property(_variableNames VARIABLES)
   foreach (_variableName ${_variableNames})
@@ -28,9 +28,9 @@ MACRO(ShowEnvironment)
 
   execute_process(COMMAND "${CMAKE_COMMAND}" "-E" "environment")
   message(STATUS "================================================================================")
-ENDMACRO(ShowEnvironment)
+endmacro(ShowEnvironment)
 
-MACRO(ModuleSetCompileOptions)
+macro(ModuleSetCompileOptions)
   CMAKE_POLICY(SET CMP0022 NEW)
   INCLUDE(CheckCXXCompilerFlag)
   IF(POLICY CMP0048)
@@ -139,7 +139,7 @@ MACRO(ModuleSetCompileOptions)
     SET(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} -g")
     SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g")
 
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fPIE" )
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}" )
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
     SET(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS}")
     LINK_LIBRARIES()
@@ -185,7 +185,7 @@ MACRO(ModuleSetCompileOptions)
     SET(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} -g")
     SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g")
 
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fPIE")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS}")
     SET(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS}")
 
@@ -196,9 +196,9 @@ MACRO(ModuleSetCompileOptions)
       SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
     ENDIF(CCACHE_FOUND)
   ENDIF ()
-ENDMACRO(ModuleSetCompileOptions)
+endmacro(ModuleSetCompileOptions)
 
-MACRO(ModuleSetWinCompilerFlags)
+macro(ModuleSetWinCompilerFlags)
   IF (WIN32)
     set(CompilerFlags
             CMAKE_CXX_FLAGS
@@ -216,28 +216,13 @@ MACRO(ModuleSetWinCompilerFlags)
       string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
   ENDIF (WIN32)
-ENDMACRO(ModuleSetWinCompilerFlags)
+endmacro(ModuleSetWinCompilerFlags)
 
-MACRO(AddInstall ModuleList)
-  FOREACH(child ${ARGV})
-    Message(STATUS "AddInstall ${child} ...")
-    IF (WIN32)
-        INSTALL(TARGETS ${ModuleName}
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib)
-    ELSE(WIN32)
-        INCLUDE(GNUInstallDirs)
-        INSTALL(TARGETS ${ModuleName}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    ENDIF(WIN32)
-  ENDFOREACH()
-
-  CONFIGURE_FILE(
-          "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
-          "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-          IMMEDIATE @ONLY)
-  ADD_CUSTOM_TARGET(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
-ENDMACRO(AddInstall)
+MACRO(AddUninstallTarget)
+CONFIGURE_FILE(
+        "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+        IMMEDIATE @ONLY)
+ADD_CUSTOM_TARGET(uninstall
+        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+ENDMACRO(AddUninstallTarget)
