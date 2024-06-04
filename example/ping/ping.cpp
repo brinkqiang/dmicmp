@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     std::string address = "8.8.8.8";
 	int count = 4;
     app.add_option("address", address, "Hostname or IP address to ping");
-	app.add_option("-t", count, "Ping 指定运行次数，直到停止");
+	app.add_option("-t,--count", count, "Ping 指定运行次数，直到停止");
 
 	CLI11_PARSE(app, argc, argv);
 
