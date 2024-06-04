@@ -8,7 +8,7 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 ModuleSetWinCompilerFlags()
 
-InterfaceImport("dmicmp" "")
+InterfaceImport("dmicmp" "include" "")
 
 if (PROJECT_IS_TOP_LEVEL)
     ExeImport("example" "dmicmp")
