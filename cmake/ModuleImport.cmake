@@ -57,7 +57,7 @@ macro(InterfaceImport ModuleName ModulePath DependsLib)
     mark_as_advanced(${ModuleName}_INCLUDE_DIR)
     set(${ModuleName}_LIBRARIES ${ModuleName})
     mark_as_advanced(${ModuleName}_LIBRARIES)
-    
+
     add_library(${ModuleName} INTERFACE)
 
     target_include_directories(${ModuleName} INTERFACE ${${ModuleName}_INCLUDE_DIR})

@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 #include "dmicmp.hpp"
-
-int main(int argc, char *argv[])
+#include "CLI/CLI11.hpp"
+int ping(const std::string& url)
 {
-    std::string address = "8.8.8.8", resolved;
-    if (argc > 1) { address = argv[1]; }
+    std::string resolved;
+    std::string address = url;
     try {
         if (!icmplib::IPAddress::IsCorrect(address, icmplib::IPAddress::Type::Unknown)) {
             resolved = address; address = icmplib::IPAddress(address);
@@ -46,5 +46,15 @@ int main(int argc, char *argv[])
         }
         std::cout << std::endl;
     }
+
     return ret;
+}
+int main(int argc, char *argv[])
+{
+    CLI::App app("ping");
+
+    std::string address = "8.8.8.8";
+    app.add_option("-h", address, "Hostname or IP address to ping");
+
+    return ping(address);
 }
