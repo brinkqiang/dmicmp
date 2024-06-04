@@ -63,6 +63,6 @@ int main(int argc, char *argv[])
 	app.add_option("-t", count, "Ping 指定运行次数，直到停止");
 
 	CLI11_PARSE(app, argc, argv);
-	std::cout << count << std::endl;
+
     return ping(address, count);
 }
